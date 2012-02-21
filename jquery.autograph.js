@@ -1,4 +1,5 @@
 // jquery.autograph.js
+/*global Highcharts:true */
 
 (function( $ ){
 
@@ -7,17 +8,19 @@
 				errorClassName: 'alert alert-error' // Matches Bootstrap v2.0
 			}; // default options
 
-	function CreateGraph(target){
+	function createGraph(target){
 		var dataUrl = target.attr('data-graph');
+		var graphTitle = target.attr('data-graph-title');
 		var graphOptions = {
-			chart: { 
-				renderTo : $(target)[0]
+			chart: {
+				renderTo : $(target)[0],
+				type : settings.defaultType
 			},
 			credits: {
 					enabled : false
 			},
 			title: {
-				text: null
+				text: graphTitle
 			},
 			xAxis: {
 				categories: []
@@ -30,15 +33,15 @@
 			series: []
 		};
 
-		$.ajax({ 
+		$.ajax({
 			url: dataUrl,
 			cache: false,
 			success: function(xml) {
 				var $xml = $(xml);
 
-				graphOptions.title.text = $xml.find('title').text();
+				graphOptions.title.text = graphOptions.title.text || $xml.find('title').text();
 				graphOptions.yAxis.title.text = $xml.find('yAxis text').text();
-				graphOptions.chart.type = $xml.find('type').text();
+				graphOptions.chart.type = graphOptions.chart.type || $xml.find('type').text();
 
 				// push categories
 				var categories = $xml.find('categories').text();
@@ -76,25 +79,25 @@
 	var methods = {
 		init : function( options ) {
 			
-			if ( options ) { 
+			if ( options ) {
 				$.extend( settings, options );
 			}
 
 			return this.each(function(){
 				var target = $(this);
-				CreateGraph(target);
-			}); 
+				createGraph(target);
+			});
 		}
 	};
 
 	$.fn.AutoGraph = function(method) {
 		// Method calling logic
 		if ( methods[method] ) {
-		 	return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
 		} else if ( typeof method === 'object' || ! method ) {
-		 	return methods.init.apply( this, arguments );
+			return methods.init.apply( this, arguments );
 		} else {
-		 	$.error( 'Method ' +  method + ' does not exist on jQuery.AutoGraph' );
+			$.error( 'Method ' +  method + ' does not exist on jQuery.AutoGraph' );
 		}
 	};
 
