@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<chart>
+	<title>More Test results</title>
+	<type>column</type>
+	<yAxis>
+		<text># test cases</text>
+	</yAxis>
+	<categories>0.0.0.1,0.0.0.2,0.0.0.3,0.0.0.4</categories>
+	<series>
+		<name>Failed</name>
+		<data>3,6,8,4</data>
+	</series>
+	<series>
+		<name>Ignored</name>
+		<data>2,3,1,2</data>
+	</series>
+	<series>
+		<name>Passed</name>
+		<data>44,25,24,30</data>
+	</series>
+</chart>
