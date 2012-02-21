@@ -3,8 +3,9 @@
 (function( $ ){
 
 	var settings = {
-				defaultType: 'column'
-			}; //default options
+				defaultType: 'column',
+				errorClassName: 'alert alert-error' // Matches Bootstrap v2.0
+			}; // default options
 
 	function CreateGraph(target){
 		var dataUrl = target.attr('data-graph');
@@ -64,6 +65,10 @@
 					graphOptions.series.push(seriesOptions);
 				});
 				var chart = new Highcharts.Chart(graphOptions);
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				var errorMessage = $("<div>Unable to load data from '" + dataUrl + "'</div>").addClass(settings.errorClassName);
+				target.prepend(errorMessage);
 			}
 		});
 	}
