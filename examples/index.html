@@ -1,111 +1,90 @@
 <!doctype html>
 <html>
-<head>
-	<title>AutoGraph.js Examples</title>
-	<link rel="stylesheet" href="css/prettify.css">
-	<link rel="stylesheet" href="css/docs.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script src="js/prettify/prettify.js"></script>
-	<script src="js/highcharts.js"></script>
-	<script src="../jquery.autograph.js"></script>
-	<script src="js/examples.js"></script>
-</head>
-<body>	
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<a class="brand" href=".">AutoGraph.js</a>
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-		<header class="jumbotron subhead" id="overview">
-			<h1>Examples</h1>
-			<p class="lead">AutoGraph.js supports multiple ways to define graphs. This examples page shows the various options.</p>
-			<div class="subnav">
-				<ul class="nav nav-pills">
-					<li><a href="#minimal">Minimal</a></li>
-					<li><a href="#advanced">Advanced</a></li>
-					<li><a href="#error">Error</a></li>
-				</ul>
-			</div>
-		</header>
-
-	<section id="minimal">
-		<div class="page-header">
-			<h1>Minimal <small>Default configuration</small></h1>
-		</div>
-		<div class="row">
-			<div class="span6">
-				<div class="well">
-					<figure data-graph="data1.xml">
-					</figure>
+	<head>
+		<title>AutoGraph.js Examples</title>
+		<link rel="stylesheet" href="css/prettify.css">
+		<link rel="stylesheet" href="css/docs.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="js/prettify/prettify.js"></script>
+		<script src="js/highcharts.js"></script>
+		<script src="../jquery.autograph.js"></script>
+		<script src="js/examples.js"></script>
+	</head>
+	<body>	
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href=".">AutoGraph.js</a>
 				</div>
 			</div>
-			<article class="span6">
-				<h2>Code</h2>
-<pre class="prettyprint linenums">
-&lt;figure data-graph="data1.xml"&gt;
-&lt;/figure&gt;
-</pre>
-				<a href="data1.xml" target="_blank" class="btn">Show data file</a>
-			</article>
 		</div>
 
-  	</section>
-
-	<section id="advanced">
-		<div class="page-header">
-			<h1>Advanced <small>Additional settings</small></h1>
-		</div>
-		<div class="row">
-			<div class="span6">
-				<div class="well">
-					<figure data-graph="data2.xml" data-graph-title="Insert graph title here">
-					</figure>
+		<div class="container">
+			<header class="jumbotron subhead" id="overview">
+				<h1>Examples</h1>
+				<p class="lead">AutoGraph.js supports multiple ways to define graphs. Pick one of the following example configurations or roll your own. The required code will be shown on the fly.</p>
+				<div class="btn-group presets">
+					<a class="btn" href="#" data-graph-url="data1.xml">Minimal</a>
+					<a class="btn" href="#" data-graph-url="data2.xml" data-graph-type="spline" data-graph-title="Graph Title">Advanced</a>
+					<a class="btn" href="#" data-graph-url="nonexisting.xml">Nonexistent data file</a>
+					<a class="btn" href="#" data-graph-url="data1.xml" data-graph-categories="Jan,Feb,Mar,Apr">Predefined categories</a>
 				</div>
-			</div>
-			<article class="span6">
-				<h2>Code</h2>
-<pre class="prettyprint linenums">
-&lt;figure 
-data-graph="data2.xml" 
-data-graph-title="Insert graph title here"&gt;
-&lt;/figure&gt;
-</pre>
-				<a href="data2.xml" target="_blank" class="btn">Show data file</a>
-			</article>
-		</div>
-	</section>
+			</header>
 
-	<section id="error">
-		<div class="page-header">
-			<h1>Error <small>In case of missing or invalid configuration</small></h1>
-		</div>
-		<div class="row">
-			<div class="span6">
-				<div class="well">
-					<figure data-graph="nonexisting.xml">
-					</figure>
+			<section id="custom">
+				<div class="page-header">
+					<h1>Customize <small>Try out your own configuration</small></h1>
 				</div>
-			</div>
-			<article class="span6">
-				<h2>Code</h2>
-<pre class="prettyprint linenums">
-&lt;figure data-graph="nonexisting.xml"&gt;
-&lt;/figure&gt;
-</pre>
-			</article>
-		</div>
-	</section>
+				<div class="row">
+					<div class="span6">
+						<div class="well">
+							<figure id="preview">
+							</figure>
+						</div>
+					</div>
+					<article class="span6">
+						<form id="preview-options" class="">
+							<label>Data file</label>
+							<input type="text" class="span3" data-option="data-graph-url" placeholder="data url...">
+							<span class="help-inline presets">e.g. <a href="#" class="noclear" data-graph-url="data1.xml">data1.xml</a> or <a href="#" class="noclear" data-graph-url="data2.xml">data2.xml</a></span>
+							<label>Graph Type</label>
+							<select data-option="data-graph-type">
+								<option></option>
+								<option>column</option>
+								<option>line</option>
+								<option>bar</option>
+								<option>area</option>
+								<option>pie</option>
+								<option>spline</option>
+								<option>areaspline</option>
+								<option>scatter</option>
+							</select>
+							<label>Graph Title</label>
+							<input type="text" class="span3" data-option="data-graph-title" placeholder="Graph title...">
+							<span class="help-inline">Leave empty to hide</span>
+							<label>Categories</label>
+							<input type="text" class="span3" data-option="data-graph-categories" placeholder="Category values...">
+							<span class="help-inline">Comma seperated list</span>
+							<label>Y axis text</label>
+							<input type="text" class="span3" data-option="data-graph-yaxis-text" placeholder="Y axis text...">
+							<span class="help-inline">Leave empty to hide</span>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-primary"><i class="icon-refresh icon-white"></i> Preview</button>
+							</div>
+						</form>
+					</article>
+				</div>
+					<h2>Code</h2>
+					<pre id="preview-code" class="prettyprint linenums">
+					</pre>
+			</section>
 
-	<footer class="footer">
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>Designed and built by <a href="http://twitter.com/robvgroenewoud" target="_blank">@robvgroenewoud</a>.</p>
-        <p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
-        <p>Icons from <a href="http://glyphicons.com">Glyphicons Free</a>, licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
-      </footer>
-	</div>
-</body>
+			<footer class="footer">
+				<p class="pull-right"><a href="#">Back to top</a></p>
+				<p>Designed and built by <a href="http://twitter.com/robvgroenewoud" target="_blank">@robvgroenewoud</a>.</p>
+				<p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+				<p>Icons from <a href="http://glyphicons.com">Glyphicons Free</a>, licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+			</footer>
+		</div>
+	</body>
 </html>
