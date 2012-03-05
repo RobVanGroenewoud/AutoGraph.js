@@ -14,6 +14,7 @@
 		var graphType = target.attr('data-graph-type');
 		var graphCategories = target.attr('data-graph-categories');
 		var graphYaxisText = target.attr('data-graph-yaxis-text');
+		var graphStacking = target.attr('data-graph-stacking');
 
 		var graphOptions = {
 			chart: {
@@ -32,6 +33,11 @@
 			yAxis: {
 				title: {
 					text: graphYaxisText
+				}
+			},
+			plotOptions: {
+				series: {
+					stacking: graphStacking
 				}
 			},
 			series: []
@@ -60,11 +66,19 @@
 					graphOptions.xAxis.categories.push(category);
 				});
 				
+				var stacking = false;
 				// push series
 				$xml.find('series').each(function(i, series) {
+					
+					var hidden = $(series).find('hidden').text() === "true";
+					var stackVal = $(series).find('stack').text();
+					var stackId = stackVal ? stackVal : null;
+					stacking = stacking || stackVal.length > 0;
 					var seriesOptions = {
 						name: $(series).find('name').text(),
-						data: []
+						data: [],
+						visible: !hidden,
+						stack: stackId
 					};
 					
 					// push data points
@@ -78,6 +92,7 @@
 					// add it to the options
 					graphOptions.series.push(seriesOptions);
 				});
+
 				var chart = new Highcharts.Chart(graphOptions);
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -117,7 +132,3 @@
 	};
 
 })( jQuery );
-
-//$(document).ready(function() {
-//	$('[data-graph]').AutoGraph();
-//});
