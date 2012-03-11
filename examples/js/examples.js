@@ -64,6 +64,23 @@
 			buildPreview();
 		});
 
+		$('[data-option=data-graph-url]').change(function(){
+			var graphUrl = $(this).val();
+			var dataUrlUndefined = graphUrl.length === 0;
+			var showData = $("#showdata");
+			showData.toggleClass('disabled', dataUrlUndefined);
+			if (!dataUrlUndefined){
+				showData.attr('href', graphUrl);
+			} else {
+				showData.removeAttr('href');	
+			}
+		});
+
+		$('#showdata').on('click', function(e){
+			if (this.hasClass('disabled')){
+				e.preventDefault();
+			}
+		});
 	});
 
 
