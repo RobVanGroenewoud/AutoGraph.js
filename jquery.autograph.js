@@ -1,7 +1,17 @@
 // jquery.autograph.js
+
+// Utility
+if ( typeof Object.create !== 'function' ) {
+	Object.create = function( obj ) {
+		function F() {}
+		F.prototype = obj;
+		return new F();
+	};
+}
+
 /*global Highcharts:true */
 
-(function( $ ){
+(function( $, window, document, undefined ) {
 
 	var settings = {
 				defaultType: 'column',
@@ -131,4 +141,8 @@
 		}
 	};
 
-})( jQuery );
+	$.fn.AutoGraph.options = {
+		errorClassName: 'alert alert-error', // Matches Bootstrap v2.0
+		graphType: 'column'
+	};
+})( jQuery, window, document );
